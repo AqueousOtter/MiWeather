@@ -8,48 +8,65 @@ import jakarta.persistence.*;
 public class Weather {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int idNo;
 
     @Column(name = "temperature")
-    private float temperature;
+    private String temperature;
     @Column(name = "humidity")
-    private float humidity;
+    private String humidity;
 
     @Column(name = "pressure")
-    private float pressure;
+    private String pressure;
 
     public Weather() {
     }
 
-    public Weather(float temperature, float humidity, float pressure) {
+
+    public Weather(String temperature, String humidity, String pressure) {
         this.temperature = temperature;
         this.humidity = humidity;
         this.pressure = pressure;
     }
 
-    public float getTemperature() {
+    public String getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(float temperature) {
+    public void setTemperature(String temperature) {
         this.temperature = temperature;
     }
 
-    public float getHumidity() {
+    public String getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(float humidity) {
+    public void setHumidity(String humidity) {
         this.humidity = humidity;
     }
 
-    public float getPressure() {
+    public String getPressure() {
         return pressure;
     }
 
-    public void setPressure(float pressure) {
+    public void setPressure(String pressure) {
         this.pressure = pressure;
+    }
+
+    public void convertTemp(){
+        //convert C to F
+        double theTempNumber = Double.parseDouble(this.getTemperature());
+        this.temperature =  String.valueOf((theTempNumber * 9/5) + 32);
+    }
+
+    @Override
+    public String toString() {
+        return "Weather{" +
+                "idNo=" + idNo +
+                ", temperature='" + temperature + '\'' +
+                ", humidity='" + humidity + '\'' +
+                ", pressure='" + pressure + '\'' +
+                '}';
     }
 }

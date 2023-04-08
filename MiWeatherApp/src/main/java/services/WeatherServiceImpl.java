@@ -9,13 +9,20 @@ import org.springframework.stereotype.Service;
 public class WeatherServiceImpl implements WeatherService {
 
     WeatherRepo weatherRepo;
-
-    @Autowired
-    public WeatherServiceImpl(WeatherRepo theWeatherRepo){
-        weatherRepo = theWeatherRepo;
+    public WeatherServiceImpl() {
+        // no-args constructor
     }
+    @Autowired
+    public WeatherServiceImpl(WeatherRepo theweatherRepo){
+        weatherRepo = theweatherRepo;
+    }
+
+
+
     @Override
     public void save(Weather theWeather) {
+        theWeather.convertTemp();
+        System.out.println(theWeather);
         weatherRepo.save(theWeather);
 
     }
