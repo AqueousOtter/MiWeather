@@ -22,7 +22,8 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     public void save(Weather theWeather) {
-        System.out.println(theWeather.dewPoint());
+        theWeather.dewPoint();
+        System.out.println(theWeather.;
         theWeather.convertTemp();
         System.out.println(theWeather);
         weatherRepo.save(theWeather);

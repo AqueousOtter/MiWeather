@@ -22,6 +22,9 @@ public class Weather {
     @Column(name = "pressure")
     private String pressure;
 
+    @Column(name = "dew_point")
+    private String dewPoint;
+
     private static final DecimalFormat df = new DecimalFormat("0.00");
     public Weather() {
     }
@@ -31,6 +34,16 @@ public class Weather {
         this.temperature = temperature;
         this.humidity = humidity;
         this.pressure = pressure;
+    }
+
+    public String getDewPoint() {
+        return dewPoint;
+    }
+
+    public void setDewPoint() {// calculate dew point using temp and humidity
+        double theTemperature = Double.parseDouble(this.getTemperature());
+        double theHumidity = Double.parseDouble(this.getHumidity());
+        this.dewPoint = String.valueOf(df.format(theTemperature - ((100-theHumidity)/5)));
     }
 
     public String getTemperature() {
@@ -63,13 +76,7 @@ public class Weather {
         this.temperature =  String.valueOf(df.format((theTempNumber * 9/5) + 32));
     }
 
-    public String dewPoint(){
-        double theTemperature = Double.parseDouble(this.getTemperature());
-        double theHumidity = Double.parseDouble(this.getHumidity());
-        String theDewPoint = String.valueOf(df.format(theTemperature - ((100-theHumidity)/5)));
-        return theDewPoint;
 
-    }
 
     @Override
     public String toString() {
