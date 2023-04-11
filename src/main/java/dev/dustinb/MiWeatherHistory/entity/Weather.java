@@ -3,6 +3,8 @@ package dev.dustinb.MiWeatherHistory.entity;
 
 import jakarta.persistence.*;
 
+import java.text.DecimalFormat;
+
 @Entity
 @Table(name="weather")//weather for pi, miweatherreadings for pc
 public class Weather {
@@ -20,6 +22,7 @@ public class Weather {
     @Column(name = "pressure")
     private String pressure;
 
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     public Weather() {
     }
 
@@ -57,7 +60,15 @@ public class Weather {
     public void convertTemp(){
         //convert C to F
         double theTempNumber = Double.parseDouble(this.getTemperature());
-        this.temperature =  String.valueOf((theTempNumber * 9/5) + 32);
+        this.temperature =  String.valueOf(df.format((theTempNumber * 9/5) + 32));
+    }
+
+    public String dewPoint(){
+        double theTemperature = Double.parseDouble(this.getTemperature());
+        double theHumidity = Double.parseDouble(this.getHumidity());
+        String theDewPoint = String.valueOf(df.format(theTemperature - ((100-theHumidity)/5)));
+        return theDewPoint;
+
     }
 
     @Override
